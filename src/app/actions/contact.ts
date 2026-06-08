@@ -15,6 +15,10 @@ function escapeHtml(text: string) {
     .replace(/"/g, "&quot;");
 }
 
+function normalizeEnvValue(value: string | undefined, fallback: string) {
+  return (value ?? fallback).trim().replace(/^["']|["']$/g, "");
+}
+
 export async function sendContactEmail(formData: {
   name: string;
   email: string;
@@ -46,14 +50,28 @@ export async function sendContactEmail(formData: {
     };
   }
 
-  const toEmail = process.env.CONTACT_EMAIL ?? "ahsanraza2408@gmail.com";
-  const fromEmail = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
+  const toEmail = normalizeEnvValue(
+    process.env.CONTACT_EMAIL,
+    "ahsanraza2408@gmail.com",
+  );
+  const fromEmail = normalizeEnvValue(
+    process.env.RESEND_FROM_EMAIL,
+    "onboarding@resend.dev",
+  );
+
+  if (!emailRegex.test(fromEmail)) {
+    return {
+      success: false,
+      message:
+        "Invalid sender email configured. Set RESEND_FROM_EMAIL to a valid address like onboarding@resend.dev",
+    };
+  }
 
   const resend = new Resend(apiKey);
 
   try {
     const { error } = await resend.emails.send({
-      from: `Portfolio Contact <${fromEmail}>`,
+      from: fromEmail,
       to: [toEmail],
       replyTo: email,
       subject: `Portfolio: New message from ${name}`,
