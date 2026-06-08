@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 5.5%;
+    --card-foreground: 0 0% 98%;
+    --primary: 263 70% 65%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 9%;
+    --muted-foreground: 0 0% 55%;
+    --border: 0 0% 13%;
+    --input: 0 0% 13%;
+    --ring: 263 70% 65%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: hsl(263 70% 65% / 0.25);
+    color: hsl(0 0% 98%);
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--background)); }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(263 70% 65% / 0.4); }
+}
+
+@layer utilities {
+  .gradient-text {
+    background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #34d399 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-warm {
+    background: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-shine::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.03) 50%,
+      transparent 60%
+    );
+    pointer-events: none;
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .line-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .glow-sm { box-shadow: 0 0 20px hsl(263 70% 65% / 0.12); }
+  .glow-md { box-shadow: 0 0 40px hsl(263 70% 65% / 0.18); }
+
+  .avatar-ring {
+    background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399, #a78bfa);
+    background-size: 300% 300%;
+    animation: ring-spin 4s linear infinite;
+  }
+
+  @keyframes ring-spin {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .text-balance { text-wrap: balance; }
+}
