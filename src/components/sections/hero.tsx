@@ -138,7 +138,7 @@ export default function Hero() {
                   transition={{ duration: 0.3, delay: 0.8 }}
                   className="text-muted-foreground font-normal"
                 >
-                  I build{" "}
+                  I am{" "}
                 </motion.span>
                 <motion.span
                   initial={{ opacity: 0 }}
