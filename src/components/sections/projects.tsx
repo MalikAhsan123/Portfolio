@@ -37,7 +37,7 @@ const dotColors: Record<string, string> = {
 
 export default function Projects() {
   return (
-    <SectionWrapper id="projects">
+    <SectionWrapper id="project">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <div className="mb-8">
           <SectionHeading
