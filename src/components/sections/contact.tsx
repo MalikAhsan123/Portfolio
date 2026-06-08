@@ -226,10 +226,10 @@ export default function Contact() {
                           Sending...
                         </>
                       ) : (
-                        <>
+                        <p className="cursor-pointer flex items-center gap-2">
                           <PaperPlaneTilt size={15} weight="bold" />
                           Send message
-                        </>
+                        </p>
                       )}
                     </motion.button>
                   </form>
