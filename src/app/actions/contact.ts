@@ -46,7 +46,8 @@ export async function sendContactEmail(formData: {
   if (!apiKey || apiKey === "re_your_api_key_here") {
     return {
       success: false,
-      message: "Email service is not configured. Add RESEND_API_KEY to .env.local and restart the server.",
+      message:
+        "Email service is not configured. Add RESEND_API_KEY to .env.local for local dev, or to your hosting provider's Production environment variables and redeploy.",
     };
   }
 
