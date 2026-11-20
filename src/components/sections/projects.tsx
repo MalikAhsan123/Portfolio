@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { projects } from "@/data";
 import SectionWrapper from "@/components/ui/section-wrapper";
@@ -37,7 +38,7 @@ const dotColors: Record<string, string> = {
 
 export default function Projects() {
   return (
-    <SectionWrapper id="project">
+    <SectionWrapper id="projects">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <div className="mb-8">
           <SectionHeading
@@ -52,52 +53,75 @@ export default function Projects() {
             <motion.div key={project.title} variants={fadeUpVariants} className="h-full">
               <GlowCard
                 glowColor={accentMap[project.accentColor] ?? accentMap.violet}
-                className="h-full flex flex-col"
+                className="group flex h-full flex-col overflow-hidden"
               >
-                {/* Gradient backdrop */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} rounded-xl pointer-events-none`} />
+                <div
+                  className={`pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br ${project.gradient}`}
+                />
 
-                {/* Browser chrome header */}
-                <div className="relative flex items-center justify-between px-4 py-3 border-b border-border/40 bg-secondary/20">
+                <div className="relative flex items-center justify-between border-b border-border/40 bg-secondary/20 px-4 py-3">
                   <div className="flex items-center gap-1.5">
                     <div className="h-2.5 w-2.5 rounded-full bg-red-500/60" />
                     <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/60" />
                     <div className="h-2.5 w-2.5 rounded-full bg-green-500/60" />
                   </div>
-                  {project.live && (
-                    <div className="flex items-center gap-1.5 px-2 sm:px-3 py-1 rounded-md bg-secondary/50 border border-border/40 max-w-[45%] sm:max-w-[55%]">
-                      <Circle size={6} weight="fill" className={`${dotColors[project.accentColor]} shrink-0`} />
-                      <span className="text-[10px] text-muted-foreground font-mono truncate">
+                  {project.live ? (
+                    <div className="flex max-w-[45%] items-center gap-1.5 rounded-md border border-border/40 bg-secondary/50 px-2 py-1 sm:max-w-[55%] sm:px-3">
+                      <Circle
+                        size={6}
+                        weight="fill"
+                        className={`${dotColors[project.accentColor]} shrink-0`}
+                      />
+                      <span className="truncate font-mono text-[10px] text-muted-foreground">
                         {project.live.replace("https://", "").replace(/\/$/, "")}
                       </span>
                     </div>
-                  )}
-                  {project.live && (
+                  ) : null}
+                  {project.live ? (
                     <a
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200 shrink-0"
+                      className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-all duration-200 hover:bg-secondary hover:text-foreground"
+                      aria-label={`Open ${project.title}`}
                     >
                       <ArrowUpRight size={14} weight="bold" />
                     </a>
-                  )}
+                  ) : null}
                 </div>
 
-                {/* Content */}
-                <div className="relative p-6 flex flex-col flex-1">
-                  <h3 className="text-base font-semibold text-foreground mb-2">
+                {project.image ? (
+                  <a
+                    href={project.live ?? undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative block aspect-[16/10] overflow-hidden border-b border-border/40 bg-secondary/30"
+                  >
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} website hero preview`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </a>
+                ) : null}
+
+                <div className="relative flex flex-1 flex-col p-6">
+                  <h3 className="mb-2 text-base font-semibold text-foreground">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                  <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-1.5 mt-5">
+                  <div className="mt-5 flex flex-wrap gap-1.5">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className={`px-2 py-0.5 text-[11px] font-medium rounded-md border ${tagColorMap[project.accentColor] ?? tagColorMap.violet}`}
+                        className={`rounded-md border px-2 py-0.5 text-[11px] font-medium ${
+                          tagColorMap[project.accentColor] ?? tagColorMap.violet
+                        }`}
                       >
                         {tag}
                       </span>
