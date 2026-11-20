@@ -9,6 +9,7 @@ import { fadeUpVariants } from "@/components/ui/section-wrapper";
 import GlowCard from "@/components/ui/glow-card";
 import {
   EnvelopeSimple,
+  GithubLogo,
   LinkedinLogo,
   ArrowRight,
   PaperPlaneTilt,
@@ -42,6 +43,7 @@ export default function Contact() {
 
   const socialLinks = [
     { href: siteConfig.social.linkedin, Icon: LinkedinLogo, label: "LinkedIn", handle: "muhammad-ahsan-raza", color: "text-blue-400 bg-blue-500/10 border-blue-500/20" },
+    { href: siteConfig.social.github, Icon: GithubLogo, label: "GitHub", handle: "MalikAhsan123", color: "text-foreground bg-secondary border-border/60" },
   ];
 
   return (

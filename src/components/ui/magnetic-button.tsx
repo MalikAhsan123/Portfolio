@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useRef } from "react";
 
@@ -38,8 +38,9 @@ export default function MagneticButton({
     if (!rect) return;
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) * 0.4);
-    y.set((e.clientY - centerY) * 0.4);
+    const factor = strength / 75;
+    x.set((e.clientX - centerX) * factor);
+    y.set((e.clientY - centerY) * factor);
   }
 
   function handleMouseLeave() {

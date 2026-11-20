@@ -4,7 +4,7 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import { navLinks, siteConfig } from "@/data";
 import { cn } from "@/lib/utils";
-import { LinkedinLogo, List, X } from "@phosphor-icons/react";
+import { GithubLogo, LinkedinLogo, List, X } from "@phosphor-icons/react";
 
 export default function Navbar() {
   const [hidden, setHidden] = useState(false);
@@ -73,9 +73,20 @@ export default function Navbar() {
               className="flex items-center gap-2"
             >
               <a
+                href={siteConfig.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="hidden md:flex p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary"
+              >
+                <GithubLogo size={16} weight="bold" />
+              </a>
+
+              <a
                 href={siteConfig.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="LinkedIn"
                 className="hidden md:flex p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary"
               >
                 <LinkedinLogo size={16} weight="bold" />

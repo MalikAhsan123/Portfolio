@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { siteConfig } from "@/data";
-import { LinkedinLogo, ArrowUp, Heart } from "@phosphor-icons/react";
+import { GithubLogo, LinkedinLogo, ArrowUp, Heart } from "@phosphor-icons/react";
 
 export default function Footer() {
   return (
@@ -30,6 +30,15 @@ export default function Footer() {
 
           {/* Right */}
           <div className="flex items-center gap-2">
+            <a
+              href={siteConfig.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary"
+            >
+              <GithubLogo size={15} weight="bold" />
+            </a>
             <a
               href={siteConfig.social.linkedin}
               target="_blank"

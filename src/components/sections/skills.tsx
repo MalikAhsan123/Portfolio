@@ -5,7 +5,7 @@ import { skills } from "@/data";
 import SectionWrapper from "@/components/ui/section-wrapper";
 import SectionHeading from "@/components/ui/section-heading";
 import { fadeUpVariants } from "@/components/ui/section-wrapper";
-import { Browser, Database, Wrench } from "@phosphor-icons/react";
+import { Browser, Database, DeviceMobile, Wrench } from "@phosphor-icons/react";
 
 const categoryMeta = [
   {
@@ -21,6 +21,13 @@ const categoryMeta = [
     iconBg: "bg-blue-500/15 border-blue-500/25",
     iconColor: "text-blue-400",
     barGradient: "from-blue-500 to-cyan-500",
+  },
+  {
+    icon: DeviceMobile,
+    gradient: "from-pink-500/15 to-rose-500/5",
+    iconBg: "bg-pink-500/15 border-pink-500/25",
+    iconColor: "text-pink-400",
+    barGradient: "from-pink-500 to-rose-500",
   },
   {
     icon: Wrench,
@@ -43,9 +50,9 @@ export default function Skills() {
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {skills.map((skillGroup, groupIndex) => {
-            const meta = categoryMeta[groupIndex];
+            const meta = categoryMeta[groupIndex] ?? categoryMeta[categoryMeta.length - 1];
             const Icon = meta.icon;
             return (
               <motion.div

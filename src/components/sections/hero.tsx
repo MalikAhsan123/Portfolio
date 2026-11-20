@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { siteConfig, typingRoles } from "@/data";
-import { ArrowRight, ArrowDown, LinkedinLogo, MapPin } from "@phosphor-icons/react";
+import { ArrowRight, ArrowDown, DownloadSimple, GithubLogo, LinkedinLogo, MapPin } from "@phosphor-icons/react";
 import AnimatedText from "@/components/ui/animated-text";
 
 function TypingAnimation({ roles }: { roles: string[] }) {
@@ -15,26 +15,33 @@ function TypingAnimation({ roles }: { roles: string[] }) {
 
   useEffect(() => {
     const currentRole = roles[currentIndex];
-    let timeout: ReturnType<typeof setTimeout>;
+    let delay = 60;
+    if (isPaused) delay = 1800;
+    else if (isDeleting) delay = 35;
+    else if (displayText.length >= currentRole.length) delay = 40;
 
-    if (isPaused) {
-      timeout = setTimeout(() => { setIsPaused(false); setIsDeleting(true); }, 1800);
-      return () => clearTimeout(timeout);
-    }
-    if (!isDeleting) {
-      if (displayText.length < currentRole.length) {
-        timeout = setTimeout(() => setDisplayText(currentRole.slice(0, displayText.length + 1)), 60);
-      } else {
-        setIsPaused(true);
+    const timeout = setTimeout(() => {
+      if (isPaused) {
+        setIsPaused(false);
+        setIsDeleting(true);
+        return;
       }
-    } else {
+      if (!isDeleting) {
+        if (displayText.length < currentRole.length) {
+          setDisplayText(currentRole.slice(0, displayText.length + 1));
+        } else {
+          setIsPaused(true);
+        }
+        return;
+      }
       if (displayText.length > 0) {
-        timeout = setTimeout(() => setDisplayText(displayText.slice(0, -1)), 35);
-      } else {
-        setIsDeleting(false);
-        setCurrentIndex((prev) => (prev + 1) % roles.length);
+        setDisplayText(displayText.slice(0, -1));
+        return;
       }
-    }
+      setIsDeleting(false);
+      setCurrentIndex((prev) => (prev + 1) % roles.length);
+    }, delay);
+
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, isPaused, currentIndex, roles]);
 
@@ -196,6 +203,29 @@ export default function Hero() {
               >
                 <LinkedinLogo size={15} weight="bold" />
                 LinkedIn
+              </motion.a>
+
+              <motion.a
+                href={siteConfig.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border/80 bg-secondary/40 text-foreground font-medium text-sm hover:bg-secondary hover:border-border transition-all duration-200"
+              >
+                <GithubLogo size={15} weight="bold" />
+                GitHub
+              </motion.a>
+
+              <motion.a
+                href={siteConfig.resumeUrl}
+                download
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border/80 bg-secondary/40 text-foreground font-medium text-sm hover:bg-secondary hover:border-border transition-all duration-200"
+              >
+                <DownloadSimple size={15} weight="bold" />
+                Resume
               </motion.a>
 
               <motion.a

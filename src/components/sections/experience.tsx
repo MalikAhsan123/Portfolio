@@ -5,7 +5,7 @@ import { experience, education } from "@/data";
 import SectionWrapper from "@/components/ui/section-wrapper";
 import SectionHeading from "@/components/ui/section-heading";
 import { fadeUpVariants } from "@/components/ui/section-wrapper";
-import { MapPin, CheckCircle, GraduationCap, ArrowUpRight } from "@phosphor-icons/react";
+import { MapPin, CheckCircle, GraduationCap } from "@phosphor-icons/react";
 
 const companyColors = [
   { dot: "bg-violet-400", ring: "border-violet-500/30", bg: "bg-violet-500/10", text: "text-violet-400" },
